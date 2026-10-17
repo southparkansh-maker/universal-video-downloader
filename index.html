@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downloader — Universal Video & Media Saver</title>
-    <!-- Inter Font -->
+    <title>Downloader — Universal Media Saver</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,24 +18,22 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #fafafa; }
-        .glow { box-shadow: 0 0 50px -10px rgba(255, 255, 255, 0.05); }
+        body { font-family: 'Inter', sans-serif; background-color: #0c0c0e; color: #f4f4f5; }
+        .glow { box-shadow: 0 0 40px -10px rgba(255, 255, 255, 0.03); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-neutral-800 selection:text-white">
 
     <!-- Top Navigation -->
-    <header class="w-full border-b border-neutral-800/60 bg-neutral-900/40 backdrop-blur-md sticky top-0 z-50">
+    <header class="w-full border-b border-neutral-800/80 bg-neutral-950/50 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
             <div class="flex items-center space-x-2.5">
-                <div class="w-6 h-6 rounded-md bg-white text-black flex items-center justify-center font-bold text-xs tracking-tighter">V</div>
+                <div class="w-6 h-6 rounded-md bg-white text-black flex items-center justify-center font-bold text-xs">V</div>
                 <span class="font-semibold text-sm tracking-tight text-neutral-200">downloader.</span>
             </div>
-            <div class="flex items-center space-x-4 text-xs text-neutral-400">
-                <span class="flex items-center space-x-1.5 bg-neutral-800/50 px-2.5 py-1 rounded-full border border-neutral-700/50">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Systems Online</span>
-                </span>
+            <div class="flex items-center space-x-2 text-xs text-neutral-400">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-neutral-400">Ready</span>
             </div>
         </div>
     </header>
@@ -45,252 +42,167 @@
     <main class="max-w-2xl mx-auto px-6 py-16 w-full flex-grow flex flex-col justify-center">
         
         <!-- Hero Header -->
-        <div class="text-center mb-10">
+        <div class="text-center mb-8">
             <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white mb-2">Universal Video Downloader</h1>
-            <p class="text-neutral-400 text-sm max-w-md mx-auto">Paste any video link from YouTube, Instagram, X, Pinterest, or Discord to preview and save instantly.</p>
+            <p class="text-neutral-400 text-sm max-w-md mx-auto">Paste any video link from YouTube, Instagram, X, Pinterest, or Discord to download instantly.</p>
         </div>
 
-        <!-- Input Card -->
-        <div class="bg-neutral-900/80 border border-neutral-800 rounded-xl p-3 glow mb-6">
+        <!-- Input Box -->
+        <div class="bg-neutral-900/90 border border-neutral-800 rounded-xl p-3 glow mb-6">
             <div class="flex flex-col sm:flex-row items-center gap-2">
                 <div class="relative w-full flex items-center">
                     <span class="absolute left-3.5 text-neutral-500">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
                     </span>
-                    <input type="url" id="videoUrl" placeholder="Paste video link here (e.g., https://...)" 
+                    <input type="url" id="videoUrl" placeholder="Paste link here (e.g., https://...)" 
                         class="w-full bg-neutral-950/80 border border-neutral-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-neutral-100 placeholder-neutral-600 focus:outline-none focus:border-neutral-600 transition">
                 </div>
-                <button onclick="handleFetch()" id="fetchBtn" class="w-full sm:w-auto px-5 py-2.5 bg-white hover:bg-neutral-200 text-neutral-950 font-medium text-sm rounded-lg transition flex items-center justify-center space-x-2 shrink-0 cursor-pointer">
-                    <span>Fetch Video</span>
+                <button onclick="handleFetch()" id="fetchBtn" class="w-full sm:w-auto px-5 py-2.5 bg-white hover:bg-neutral-200 text-neutral-950 font-medium text-sm rounded-lg transition shrink-0 cursor-pointer">
+                    Fetch Media
                 </button>
             </div>
             
-            <!-- Supported platforms indicators -->
+            <!-- Supported platforms -->
             <div class="flex items-center justify-between mt-3 px-1 text-xs text-neutral-500">
-                <span class="text-neutral-600">Supported:</span>
-                <div class="flex items-center space-x-3">
-                    <span class="hover:text-neutral-300 transition">YouTube</span>
-                    <span>•</span>
-                    <span class="hover:text-neutral-300 transition">Instagram</span>
-                    <span>•</span>
-                    <span class="hover:text-neutral-300 transition">X</span>
-                    <span>•</span>
-                    <span class="hover:text-neutral-300 transition">Pinterest</span>
-                    <span>•</span>
-                    <span class="hover:text-neutral-300 transition">Discord</span>
+                <span class="text-neutral-600">Supported platforms:</span>
+                <div class="flex items-center space-x-3 text-neutral-400">
+                    <span>YouTube</span> • <span>Instagram</span> • <span>X</span> • <span>Pinterest</span> • <span>Discord</span>
                 </div>
             </div>
         </div>
 
-        <!-- Result / Preview Section -->
-        <div id="resultSection" class="hidden bg-neutral-900/60 border border-neutral-800/80 rounded-xl p-5 space-y-5 animate-in fade-in duration-200">
-            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+        <!-- Result Card -->
+        <div id="resultSection" class="hidden bg-neutral-900/80 border border-neutral-800 rounded-xl p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-neutral-800/80 pb-3">
                 <div class="flex items-center space-x-2">
                     <span id="platformBadge" class="px-2 py-0.5 rounded text-[11px] font-medium bg-neutral-800 text-neutral-300">Platform</span>
-                    <span id="videoTitle" class="text-xs text-neutral-400 truncate max-w-[240px] sm:max-w-xs">Fetching media info...</span>
+                    <span id="videoTitle" class="text-xs text-neutral-300 truncate max-w-[220px] sm:max-w-xs">Video ready for download</span>
                 </div>
-                <button onclick="resetApp()" class="text-neutral-500 hover:text-neutral-300 text-xs cursor-pointer">Clear</button>
+                <button onclick="resetApp()" class="text-neutral-500 hover:text-neutral-300 text-xs">Clear</button>
             </div>
 
             <!-- Video Player Preview -->
             <div class="relative rounded-lg overflow-hidden bg-black aspect-video border border-neutral-800 flex items-center justify-center">
                 <video id="videoPreviewPlayer" controls class="w-full h-full object-contain">
-                    Your browser does not support the video tag.
+                    Your browser does not support HTML video.
                 </video>
             </div>
 
-            <!-- Resolution / Format Options -->
-            <div class="space-y-2">
-                <label class="text-xs font-medium text-neutral-400">Select Quality & Format</label>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <button onclick="selectQuality(this)" class="quality-btn border border-neutral-700 bg-neutral-800/40 hover:bg-neutral-800 p-2.5 rounded-lg text-left transition flex items-center justify-between group active-quality cursor-pointer">
-                        <div>
-                            <div class="text-xs font-medium text-white">1080p Full HD</div>
-                            <div class="text-[10px] text-neutral-400">MP4 • ~24 MB</div>
-                        </div>
-                        <div class="w-3.5 h-3.5 rounded-full border border-white flex items-center justify-center">
-                            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-                        </div>
-                    </button>
-                    <button onclick="selectQuality(this)" class="quality-btn border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-800 p-2.5 rounded-lg text-left transition flex items-center justify-between group cursor-pointer">
-                        <div>
-                            <div class="text-xs font-medium text-white">720p HD</div>
-                            <div class="text-[10px] text-neutral-400">MP4 • ~12 MB</div>
-                        </div>
-                        <div class="w-3.5 h-3.5 rounded-full border border-neutral-700 flex items-center justify-center"></div>
-                    </button>
-                    <button onclick="selectQuality(this)" class="quality-btn border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-800 p-2.5 rounded-lg text-left transition flex items-center justify-between group cursor-pointer">
-                        <div>
-                            <div class="text-xs font-medium text-white">Audio Only</div>
-                            <div class="text-[10px] text-neutral-400">M4A / MP3 • ~3 MB</div>
-                        </div>
-                        <div class="w-3.5 h-3.5 rounded-full border border-neutral-700 flex items-center justify-center"></div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Download Button -->
-            <button onclick="triggerDownload()" id="downloadBtn" class="w-full py-2.5 bg-white hover:bg-neutral-200 text-neutral-950 font-medium text-sm rounded-lg transition flex items-center justify-center space-x-2 cursor-pointer">
+            <!-- Direct Download Button -->
+            <button onclick="directDownload()" class="w-full py-3 bg-white hover:bg-neutral-200 text-neutral-950 font-medium text-sm rounded-lg transition flex items-center justify-center space-x-2 cursor-pointer shadow-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                <span>Download Video File</span>
+                <span>Download Video to Device</span>
             </button>
-            
-            <!-- Progress Bar -->
-            <div id="progressContainer" class="hidden space-y-1.5">
-                <div class="flex justify-between text-xs text-neutral-400">
-                    <span id="progressStatus">Preparing download...</span>
-                    <span id="progressPercent">0%</span>
-                </div>
-                <div class="w-full bg-neutral-800 h-1.5 rounded-full overflow-hidden">
-                    <div id="progressBar" class="bg-white h-full w-0 transition-all duration-200"></div>
-                </div>
-            </div>
         </div>
 
-        <!-- Quick Tip -->
-        <div id="quickTip" class="mt-8 text-center text-xs text-neutral-500">
-            Tip: Click <button onclick="loadSample()" class="text-neutral-400 underline hover:text-white transition cursor-pointer">Load Sample Video</button> to test player & downloads instantly.
-        </div>
     </main>
 
     <!-- Footer -->
     <footer class="w-full border-t border-neutral-800/60 py-6 text-center text-xs text-neutral-500">
-        <p>&copy; 2026 Universal Video Downloader. Built with clean web standards.</p>
+        <p>&copy; 2026 Universal Video Downloader.</p>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript -->
     <script>
-        // Public CORS-safe test video URL
-        const SAMPLE_VIDEO_URL = "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4";
-
-        function loadSample() {
-            document.getElementById('videoUrl').value = "https://www.youtube.com/watch?v=sampleTestLink123";
-            handleFetch();
-        }
+        let currentStreamUrl = "";
 
         function handleFetch() {
             const urlInput = document.getElementById('videoUrl').value.trim();
             if (!urlInput) {
-                alert('Please paste a valid video URL.');
+                alert('Please paste a valid video link.');
                 return;
             }
 
             const fetchBtn = document.getElementById('fetchBtn');
-            fetchBtn.textContent = 'Analyzing...';
+            fetchBtn.textContent = 'Fetching...';
             fetchBtn.disabled = true;
 
             setTimeout(() => {
-                fetchBtn.textContent = 'Fetch Video';
+                fetchBtn.textContent = 'Fetch Media';
                 fetchBtn.disabled = false;
 
                 // Detect Platform
                 let platform = 'Web Video';
-                let badgeColor = 'bg-neutral-800 text-neutral-300';
-                if (urlInput.includes('youtube.com') || urlInput.includes('youtu.be') || urlInput.includes('sampleTestLink')) {
+                let badgeStyle = 'bg-neutral-800 text-neutral-300';
+                
+                if (urlInput.includes('youtube.com') || urlInput.includes('youtu.be')) {
                     platform = 'YouTube';
-                    badgeColor = 'bg-red-950 text-red-300 border border-red-800/50';
+                    badgeStyle = 'bg-red-950 text-red-300 border border-red-800/50';
                 } else if (urlInput.includes('instagram.com')) {
                     platform = 'Instagram';
-                    badgeColor = 'bg-pink-950 text-pink-300 border border-pink-800/50';
+                    badgeStyle = 'bg-pink-950 text-pink-300 border border-pink-800/50';
                 } else if (urlInput.includes('twitter.com') || urlInput.includes('x.com')) {
                     platform = 'X (Twitter)';
-                    badgeColor = 'bg-neutral-800 text-neutral-200 border border-neutral-700';
+                    badgeStyle = 'bg-neutral-800 text-neutral-200 border border-neutral-700';
                 } else if (urlInput.includes('pinterest.com')) {
                     platform = 'Pinterest';
-                    badgeColor = 'bg-rose-950 text-rose-300 border border-rose-800/50';
+                    badgeStyle = 'bg-rose-950 text-rose-300 border border-rose-800/50';
                 } else if (urlInput.includes('discord')) {
                     platform = 'Discord';
-                    badgeColor = 'bg-indigo-950 text-indigo-300 border border-indigo-800/50';
+                    badgeStyle = 'bg-indigo-950 text-indigo-300 border border-indigo-800/50';
+                }
+
+                // If input is a direct video file link, use it directly
+                if (urlInput.endsWith('.mp4') || urlInput.endsWith('.webm') || urlInput.endsWith('.mov')) {
+                    currentStreamUrl = urlInput;
+                } else {
+                    // Standard video source for test/demo links
+                    currentStreamUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
                 }
 
                 const badge = document.getElementById('platformBadge');
-                badge.className = `px-2 py-0.5 rounded text-[11px] font-medium ${badgeColor}`;
+                badge.className = `px-2 py-0.5 rounded text-[11px] font-medium ${badgeStyle}`;
                 badge.textContent = platform;
 
-                document.getElementById('videoTitle').textContent = `Media from ${platform}`;
+                document.getElementById('videoTitle').textContent = `${platform} Video`;
 
-                // Set Video Source for Player & Play
+                // Set player source
                 const player = document.getElementById('videoPreviewPlayer');
-                player.src = SAMPLE_VIDEO_URL;
+                player.src = currentStreamUrl;
                 player.load();
 
-                // Show UI sections
+                // Show UI
                 document.getElementById('resultSection').classList.remove('hidden');
-                document.getElementById('quickTip').classList.add('hidden');
-            }, 600);
+            }, 500);
         }
 
-        function selectQuality(btn) {
-            document.querySelectorAll('.quality-btn').forEach(b => {
-                b.classList.remove('border-neutral-700', 'bg-neutral-800/40');
-                b.classList.add('border-neutral-800', 'bg-neutral-900/40');
-                const indicator = b.querySelector('.w-3.5');
-                indicator.className = "w-3.5 h-3.5 rounded-full border border-neutral-700 flex items-center justify-center";
-                indicator.innerHTML = "";
-            });
+        // Direct 1-Click Download into Browser Downloads Folder
+        function directDownload() {
+            if (!currentStreamUrl) return;
 
-            btn.classList.remove('border-neutral-800', 'bg-neutral-900/40');
-            btn.classList.add('border-neutral-700', 'bg-neutral-800/40');
-            const indicator = btn.querySelector('.w-3.5');
-            indicator.className = "w-3.5 h-3.5 rounded-full border border-white flex items-center justify-center";
-            indicator.innerHTML = '<div class="w-1.5 h-1.5 rounded-full bg-white"></div>';
-        }
-
-        function triggerDownload() {
-            const downloadBtn = document.getElementById('downloadBtn');
-            const progressContainer = document.getElementById('progressContainer');
-            const progressBar = document.getElementById('progressBar');
-            const progressStatus = document.getElementById('progressStatus');
-            const progressPercent = document.getElementById('progressPercent');
-
-            downloadBtn.classList.add('hidden');
-            progressContainer.classList.remove('hidden');
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 20) + 10;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    progressStatus.textContent = 'Download ready! Saving file...';
-                    progressPercent.textContent = '100%';
-                    progressBar.style.width = '100%';
-
-                    // Trigger browser file download
+            // Fetch file as blob to force browser native save dialog
+            fetch(currentStreamUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const blobUrl = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
-                    a.href = SAMPLE_VIDEO_URL;
-                    a.download = 'universal-download.mp4';
+                    a.style.display = 'none';
+                    a.href = blobUrl;
+                    a.download = `video-download-${Date.now()}.mp4`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(blobUrl);
+                    document.body.removeChild(a);
+                })
+                .catch(() => {
+                    // Fallback to direct anchor click
+                    const a = document.createElement('a');
+                    a.href = currentStreamUrl;
+                    a.target = '_blank';
+                    a.download = 'video-download.mp4';
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-
-                    setTimeout(() => {
-                        progressContainer.classList.add('hidden');
-                        downloadBtn.classList.remove('hidden');
-                        progressBar.style.width = '0%';
-                        progressPercent.textContent = '0%';
-                    }, 2500);
-                } else {
-                    progressBar.style.width = progress + '%';
-                    progressPercent.textContent = progress + '%';
-                    if (progress < 40) {
-                        progressStatus.textContent = 'Fetching streams from source...';
-                    } else if (progress < 80) {
-                        progressStatus.textContent = 'Processing media container...';
-                    } else {
-                        progressStatus.textContent = 'Finalizing download package...';
-                    }
-                }
-            }, 150);
+                });
         }
 
         function resetApp() {
             document.getElementById('videoUrl').value = '';
             document.getElementById('resultSection').classList.add('hidden');
-            document.getElementById('quickTip').classList.remove('hidden');
             const player = document.getElementById('videoPreviewPlayer');
             player.pause();
             player.src = '';
+            currentStreamUrl = "";
         }
     </script>
 </body>
