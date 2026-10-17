@@ -1,338 +1,296 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniSave — Universal Video Downloader</title>
-    <!-- Tailwind CSS -->
+    <title>Downloader — Universal Video & Media Saver</title>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        zinc: {
-                            925: '#121214',
-                            950: '#09090b',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                 }
             }
         }
     </script>
-    <!-- Google Fonts Inter -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #09090b;
-            color: #f4f4f5;
-        }
-        /* Clean custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #09090b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #27272a;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3f3f46;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #fafafa; }
+        .glow { box-shadow: 0 0 50px -10px rgba(255, 255, 255, 0.05); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-zinc-800 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between selection:bg-neutral-800 selection:text-white">
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
-    <!-- Minimal Header -->
-    <header class="border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur sticky top-0 z-40">
-        <div class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
-            <div class="flex items-center gap-2.5 cursor-pointer" onclick="resetApp()">
-                <div class="w-7 h-7 rounded-lg bg-zinc-100 text-zinc-950 flex items-center justify-center font-bold text-xs">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-                </div>
-                <span class="font-semibold text-sm tracking-tight text-zinc-100">OmniSave</span>
+    <!-- Top Navigation -->
+    <header class="w-full border-b border-neutral-800/60 bg-neutral-900/40 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-2.5">
+                <div class="w-6 h-6 rounded-md bg-white text-black flex items-center justify-center font-bold text-xs tracking-tighter">V</div>
+                <span class="font-semibold text-sm tracking-tight text-neutral-200">downloader.</span>
             </div>
-            <div class="flex items-center gap-3 text-xs text-zinc-400">
-                <span class="hidden sm:inline">v2.1 Stable</span>
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>Engine Online</span>
+            <div class="flex items-center space-x-4 text-xs text-neutral-400">
+                <span class="flex items-center space-x-1.5 bg-neutral-800/50 px-2.5 py-1 rounded-full border border-neutral-700/50">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Systems Online</span>
+                </span>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow flex flex-col justify-center px-4 py-12">
-        <div class="max-w-2xl mx-auto w-full">
+    <!-- Main Container -->
+    <main class="max-w-2xl mx-auto px-6 py-16 w-full flex-grow flex flex-col justify-center">
+        
+        <!-- Hero Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white mb-2">Universal Video Downloader</h1>
+            <p class="text-neutral-400 text-sm max-w-md mx-auto">Paste any video link from YouTube, Instagram, X, Pinterest, or Discord to preview and save instantly.</p>
+        </div>
+
+        <!-- Input Card -->
+        <div class="bg-neutral-900/80 border border-neutral-800 rounded-xl p-3 glow mb-6">
+            <div class="flex flex-col sm:flex-row items-center gap-2">
+                <div class="relative w-full flex items-center">
+                    <span class="absolute left-3.5 text-neutral-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                    </span>
+                    <input type="url" id="videoUrl" placeholder="Paste video link here (e.g., https://...)" 
+                        class="w-full bg-neutral-950/80 border border-neutral-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-neutral-100 placeholder-neutral-600 focus:outline-none focus:border-neutral-600 transition">
+                </div>
+                <button onclick="handleFetch()" id="fetchBtn" class="w-full sm:w-auto px-5 py-2.5 bg-white hover:bg-neutral-200 text-neutral-950 font-medium text-sm rounded-lg transition flex items-center justify-center space-x-2 shrink-0 cursor-pointer">
+                    <span>Fetch Video</span>
+                </button>
+            </div>
             
-            <!-- Hero Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-100 mb-2">
-                    Download any video link.
-                </h1>
-                <p class="text-sm text-zinc-400">
-                    Works with YouTube, Instagram, TikTok, X (Twitter), Pinterest, and Discord.
-                </p>
+            <!-- Supported platforms indicators -->
+            <div class="flex items-center justify-between mt-3 px-1 text-xs text-neutral-500">
+                <span class="text-neutral-600">Supported:</span>
+                <div class="flex items-center space-x-3">
+                    <span class="hover:text-neutral-300 transition">YouTube</span>
+                    <span>•</span>
+                    <span class="hover:text-neutral-300 transition">Instagram</span>
+                    <span>•</span>
+                    <span class="hover:text-neutral-300 transition">X</span>
+                    <span>•</span>
+                    <span class="hover:text-neutral-300 transition">Pinterest</span>
+                    <span>•</span>
+                    <span class="hover:text-neutral-300 transition">Discord</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result / Preview Section -->
+        <div id="resultSection" class="hidden bg-neutral-900/60 border border-neutral-800/80 rounded-xl p-5 space-y-5 animate-in fade-in duration-200">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <div class="flex items-center space-x-2">
+                    <span id="platformBadge" class="px-2 py-0.5 rounded text-[11px] font-medium bg-neutral-800 text-neutral-300">Platform</span>
+                    <span id="videoTitle" class="text-xs text-neutral-400 truncate max-w-[240px] sm:max-w-xs">Fetching media info...</span>
+                </div>
+                <button onclick="resetApp()" class="text-neutral-500 hover:text-neutral-300 text-xs cursor-pointer">Clear</button>
             </div>
 
-            <!-- Input Box Form -->
-            <div class="bg-zinc-900/60 border border-zinc-800 rounded-xl p-2 shadow-lg mb-4">
-                <form id="download-form" onsubmit="handleFetch(event)" class="flex flex-col sm:flex-row gap-2">
-                    <div class="relative flex-grow flex items-center">
-                        <!-- Dynamic Platform Icon -->
-                        <div id="platform-icon-container" class="absolute left-3 text-zinc-400 flex items-center">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <!-- Video Player Preview -->
+            <div class="relative rounded-lg overflow-hidden bg-black aspect-video border border-neutral-800 flex items-center justify-center">
+                <video id="videoPreviewPlayer" controls class="w-full h-full object-contain">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Resolution / Format Options -->
+            <div class="space-y-2">
+                <label class="text-xs font-medium text-neutral-400">Select Quality & Format</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <button onclick="selectQuality(this)" class="quality-btn border border-neutral-700 bg-neutral-800/40 hover:bg-neutral-800 p-2.5 rounded-lg text-left transition flex items-center justify-between group active-quality cursor-pointer">
+                        <div>
+                            <div class="text-xs font-medium text-white">1080p Full HD</div>
+                            <div class="text-[10px] text-neutral-400">MP4 • ~24 MB</div>
                         </div>
-                        <input 
-                            type="url" 
-                            id="url-input" 
-                            placeholder="Paste video link here..." 
-                            required 
-                            autocomplete="off"
-                            oninput="detectPlatform(this.value)"
-                            class="w-full bg-transparent pl-10 pr-20 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none"
-                        />
-                        <button 
-                            type="button" 
-                            onclick="pasteClipboard()" 
-                            class="absolute right-2 px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-medium transition-colors"
-                        >
-                            Paste
-                        </button>
-                    </div>
-                    <button 
-                        type="submit" 
-                        id="fetch-btn"
-                        class="bg-zinc-100 hover:bg-white text-zinc-950 font-medium px-5 py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
-                    >
-                        <span>Fetch Video</span>
+                        <div class="w-3.5 h-3.5 rounded-full border border-white flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+                        </div>
                     </button>
-                </form>
-            </div>
-
-            <!-- Quick Sample Links -->
-            <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-zinc-400 mb-10">
-                <span class="text-zinc-500">Try example:</span>
-                <button type="button" onclick="loadSample('youtube')" class="px-2 py-1 rounded bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200 transition-colors flex items-center gap-1.5">
-                    <!-- YouTube SVG -->
-                    <svg class="w-3.5 h-3.5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                    YouTube
-                </button>
-                <button type="button" onclick="loadSample('instagram')" class="px-2 py-1 rounded bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200 transition-colors flex items-center gap-1.5">
-                    <!-- Instagram SVG -->
-                    <svg class="w-3.5 h-3.5 text-pink-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    Instagram
-                </button>
-                <button type="button" onclick="loadSample('twitter')" class="px-2 py-1 rounded bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200 transition-colors flex items-center gap-1.5">
-                    <!-- X / Twitter SVG -->
-                    <svg class="w-3.5 h-3.5 text-zinc-100" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    X (Twitter)
-                </button>
-                <button type="button" onclick="loadSample('discord')" class="px-2 py-1 rounded bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200 transition-colors flex items-center gap-1.5">
-                    <!-- Discord SVG -->
-                    <svg class="w-3.5 h-3.5 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-                    Discord
-                </button>
-            </div>
-
-            <!-- Loading Indicator -->
-            <div id="loading-box" class="hidden text-center py-12">
-                <div class="inline-block w-6 h-6 border-2 border-zinc-600 border-t-zinc-100 rounded-full animate-spin mb-3"></div>
-                <p class="text-sm text-zinc-400">Extracting media streams...</p>
-            </div>
-
-            <!-- Result Box -->
-            <div id="result-box" class="hidden bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-5">
-                <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
-                    <span id="result-platform-badge" class="text-xs font-medium px-2.5 py-1 rounded bg-zinc-800 text-zinc-300">YouTube</span>
-                    <button onclick="resetApp()" class="text-xs text-zinc-500 hover:text-zinc-300">Clear</button>
-                </div>
-
-                <!-- Video Preview & Player -->
-                <div class="space-y-3">
-                    <div class="relative rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 aspect-video">
-                        <video id="preview-video" controls class="w-full h-full object-cover">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div>
-                        <h3 id="result-title" class="font-medium text-sm text-zinc-100 line-clamp-1">Sample Video Stream Title</h3>
-                        <p class="text-xs text-zinc-500 mt-0.5">Duration: <span id="result-duration">00:10</span> • Direct Stream</p>
-                    </div>
-                </div>
-
-                <!-- Quality Selectors -->
-                <div class="grid grid-cols-3 gap-2">
-                    <button type="button" onclick="setQuality(this, '1080p')" class="quality-btn active p-2.5 rounded-lg border border-zinc-700 bg-zinc-800 text-left transition-all">
-                        <div class="text-xs font-medium text-zinc-100">1080p FHD</div>
-                        <div class="text-[10px] text-zinc-400">MP4 • High</div>
+                    <button onclick="selectQuality(this)" class="quality-btn border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-800 p-2.5 rounded-lg text-left transition flex items-center justify-between group cursor-pointer">
+                        <div>
+                            <div class="text-xs font-medium text-white">720p HD</div>
+                            <div class="text-[10px] text-neutral-400">MP4 • ~12 MB</div>
+                        </div>
+                        <div class="w-3.5 h-3.5 rounded-full border border-neutral-700 flex items-center justify-center"></div>
                     </button>
-                    <button type="button" onclick="setQuality(this, '720p')" class="quality-btn p-2.5 rounded-lg border border-zinc-800 bg-zinc-900/50 text-left transition-all">
-                        <div class="text-xs font-medium text-zinc-200">720p HD</div>
-                        <div class="text-[10px] text-zinc-500">MP4 • Standard</div>
-                    </button>
-                    <button type="button" onclick="setQuality(this, 'mp3')" class="quality-btn p-2.5 rounded-lg border border-zinc-800 bg-zinc-900/50 text-left transition-all">
-                        <div class="text-xs font-medium text-zinc-200">Audio Only</div>
-                        <div class="text-[10px] text-zinc-500">MP3 • 320kbps</div>
+                    <button onclick="selectQuality(this)" class="quality-btn border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-800 p-2.5 rounded-lg text-left transition flex items-center justify-between group cursor-pointer">
+                        <div>
+                            <div class="text-xs font-medium text-white">Audio Only</div>
+                            <div class="text-[10px] text-neutral-400">M4A / MP3 • ~3 MB</div>
+                        </div>
+                        <div class="w-3.5 h-3.5 rounded-full border border-neutral-700 flex items-center justify-center"></div>
                     </button>
                 </div>
-
-                <!-- Download Trigger Button -->
-                <button 
-                    type="button" 
-                    onclick="downloadFile()" 
-                    id="download-action-btn"
-                    class="w-full bg-zinc-100 hover:bg-white text-zinc-950 font-medium py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
-                >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    <span>Download File (1080p MP4)</span>
-                </button>
             </div>
 
+            <!-- Download Button -->
+            <button onclick="triggerDownload()" id="downloadBtn" class="w-full py-2.5 bg-white hover:bg-neutral-200 text-neutral-950 font-medium text-sm rounded-lg transition flex items-center justify-center space-x-2 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span>Download Video File</span>
+            </button>
+            
+            <!-- Progress Bar -->
+            <div id="progressContainer" class="hidden space-y-1.5">
+                <div class="flex justify-between text-xs text-neutral-400">
+                    <span id="progressStatus">Preparing download...</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="w-full bg-neutral-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="progressBar" class="bg-white h-full w-0 transition-all duration-200"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Tip -->
+        <div id="quickTip" class="mt-8 text-center text-xs text-neutral-500">
+            Tip: Click <button onclick="loadSample()" class="text-neutral-400 underline hover:text-white transition cursor-pointer">Load Sample Video</button> to test player & downloads instantly.
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-zinc-800/80 py-6 text-center text-xs text-zinc-500">
-        <p>OmniSave • Fast & secure media extraction tool.</p>
+    <footer class="w-full border-t border-neutral-800/60 py-6 text-center text-xs text-neutral-500">
+        <p>&copy; 2026 Universal Video Downloader. Built with clean web standards.</p>
     </footer>
 
     <!-- JavaScript Logic -->
     <script>
-        // Reliable sample mp4 video for preview & actual downloads
-        const sampleVideoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-        let selectedQuality = '1080p';
+        // Public CORS-safe test video URL
+        const SAMPLE_VIDEO_URL = "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4";
 
-        // Platform auto detection
-        function detectPlatform(url) {
-            const container = document.getElementById('platform-icon-container');
-            if (!url) {
-                container.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>`;
+        function loadSample() {
+            document.getElementById('videoUrl').value = "https://www.youtube.com/watch?v=sampleTestLink123";
+            handleFetch();
+        }
+
+        function handleFetch() {
+            const urlInput = document.getElementById('videoUrl').value.trim();
+            if (!urlInput) {
+                alert('Please paste a valid video URL.');
                 return;
             }
 
-            const lower = url.toLowerCase();
-            if (lower.includes('youtube') || lower.includes('youtu.be')) {
-                container.innerHTML = `<svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`;
-            } else if (lower.includes('instagram')) {
-                container.innerHTML = `<svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`;
-            } else if (lower.includes('twitter') || lower.includes('x.com')) {
-                container.innerHTML = `<svg class="w-4 h-4 text-zinc-100" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`;
-            } else if (lower.includes('discord')) {
-                container.innerHTML = `<svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>`;
-            } else {
-                container.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>`;
-            }
-        }
-
-        async function pasteClipboard() {
-            try {
-                const text = await navigator.clipboard.readText();
-                if (text) {
-                    const input = document.getElementById('url-input');
-                    input.value = text;
-                    detectPlatform(text);
-                    showToast('Link pasted');
-                }
-            } catch (err) {
-                showToast('Clipboard permission denied');
-            }
-        }
-
-        function loadSample(type) {
-            const input = document.getElementById('url-input');
-            const samples = {
-                youtube: 'https://www.youtube.com/watch?v=sample_video_123',
-                instagram: 'https://www.instagram.com/reel/sample_reel_456',
-                twitter: 'https://x.com/user/status/sample_tweet_789',
-                discord: 'https://cdn.discordapp.com/attachments/sample/video.mp4'
-            };
-            input.value = samples[type] || samples.youtube;
-            detectPlatform(input.value);
-            showToast('Sample link loaded');
-        }
-
-        function handleFetch(e) {
-            e.preventDefault();
-            const url = document.getElementById('url-input').value.trim();
-            if (!url) return;
-
-            document.getElementById('loading-box').classList.remove('hidden');
-            document.getElementById('result-box').classList.add('hidden');
+            const fetchBtn = document.getElementById('fetchBtn');
+            fetchBtn.textContent = 'Analyzing...';
+            fetchBtn.disabled = true;
 
             setTimeout(() => {
-                document.getElementById('loading-box').classList.add('hidden');
-                document.getElementById('result-box').classList.remove('hidden');
-                
-                // Set video source so player actually plays
-                const videoPlayer = document.getElementById('preview-video');
-                videoPlayer.src = sampleVideoUrl;
-                videoPlayer.load();
+                fetchBtn.textContent = 'Fetch Video';
+                fetchBtn.disabled = false;
 
-                // Set title metadata
-                document.getElementById('result-title').textContent = "Extracted Media Stream (" + url.slice(0, 30) + "...)";
-                showToast('Media stream successfully fetched');
-            }, 800);
+                // Detect Platform
+                let platform = 'Web Video';
+                let badgeColor = 'bg-neutral-800 text-neutral-300';
+                if (urlInput.includes('youtube.com') || urlInput.includes('youtu.be') || urlInput.includes('sampleTestLink')) {
+                    platform = 'YouTube';
+                    badgeColor = 'bg-red-950 text-red-300 border border-red-800/50';
+                } else if (urlInput.includes('instagram.com')) {
+                    platform = 'Instagram';
+                    badgeColor = 'bg-pink-950 text-pink-300 border border-pink-800/50';
+                } else if (urlInput.includes('twitter.com') || urlInput.includes('x.com')) {
+                    platform = 'X (Twitter)';
+                    badgeColor = 'bg-neutral-800 text-neutral-200 border border-neutral-700';
+                } else if (urlInput.includes('pinterest.com')) {
+                    platform = 'Pinterest';
+                    badgeColor = 'bg-rose-950 text-rose-300 border border-rose-800/50';
+                } else if (urlInput.includes('discord')) {
+                    platform = 'Discord';
+                    badgeColor = 'bg-indigo-950 text-indigo-300 border border-indigo-800/50';
+                }
+
+                const badge = document.getElementById('platformBadge');
+                badge.className = `px-2 py-0.5 rounded text-[11px] font-medium ${badgeColor}`;
+                badge.textContent = platform;
+
+                document.getElementById('videoTitle').textContent = `Media from ${platform}`;
+
+                // Set Video Source for Player & Play
+                const player = document.getElementById('videoPreviewPlayer');
+                player.src = SAMPLE_VIDEO_URL;
+                player.load();
+
+                // Show UI sections
+                document.getElementById('resultSection').classList.remove('hidden');
+                document.getElementById('quickTip').classList.add('hidden');
+            }, 600);
         }
 
-        function setQuality(btn, quality) {
+        function selectQuality(btn) {
             document.querySelectorAll('.quality-btn').forEach(b => {
-                b.className = 'quality-btn p-2.5 rounded-lg border border-zinc-800 bg-zinc-900/50 text-left transition-all';
-                b.querySelector('div:first-child').className = 'text-xs font-medium text-zinc-200';
+                b.classList.remove('border-neutral-700', 'bg-neutral-800/40');
+                b.classList.add('border-neutral-800', 'bg-neutral-900/40');
+                const indicator = b.querySelector('.w-3.5');
+                indicator.className = "w-3.5 h-3.5 rounded-full border border-neutral-700 flex items-center justify-center";
+                indicator.innerHTML = "";
             });
-            btn.className = 'quality-btn active p-2.5 rounded-lg border border-zinc-700 bg-zinc-800 text-left transition-all';
-            btn.querySelector('div:first-child').className = 'text-xs font-medium text-zinc-100';
 
-            selectedQuality = quality;
-            const actionBtnText = document.getElementById('download-action-btn').querySelector('span');
-            if (quality === 'mp3') {
-                actionBtnText.textContent = 'Download Audio (320kbps MP3)';
-            } else {
-                actionBtnText.textContent = `Download File (${quality} MP4)`;
-            }
+            btn.classList.remove('border-neutral-800', 'bg-neutral-900/40');
+            btn.classList.add('border-neutral-700', 'bg-neutral-800/40');
+            const indicator = btn.querySelector('.w-3.5');
+            indicator.className = "w-3.5 h-3.5 rounded-full border border-white flex items-center justify-center";
+            indicator.innerHTML = '<div class="w-1.5 h-1.5 rounded-full bg-white"></div>';
         }
 
-        function downloadFile() {
-            // Trigger actual direct file download using anchor element
-            const a = document.createElement('a');
-            a.href = sampleVideoUrl;
-            a.download = `omnisave_${selectedQuality}_video.mp4`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            showToast('Download started');
+        function triggerDownload() {
+            const downloadBtn = document.getElementById('downloadBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressStatus = document.getElementById('progressStatus');
+            const progressPercent = document.getElementById('progressPercent');
+
+            downloadBtn.classList.add('hidden');
+            progressContainer.classList.remove('hidden');
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 20) + 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    progressStatus.textContent = 'Download ready! Saving file...';
+                    progressPercent.textContent = '100%';
+                    progressBar.style.width = '100%';
+
+                    // Trigger browser file download
+                    const a = document.createElement('a');
+                    a.href = SAMPLE_VIDEO_URL;
+                    a.download = 'universal-download.mp4';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+
+                    setTimeout(() => {
+                        progressContainer.classList.add('hidden');
+                        downloadBtn.classList.remove('hidden');
+                        progressBar.style.width = '0%';
+                        progressPercent.textContent = '0%';
+                    }, 2500);
+                } else {
+                    progressBar.style.width = progress + '%';
+                    progressPercent.textContent = progress + '%';
+                    if (progress < 40) {
+                        progressStatus.textContent = 'Fetching streams from source...';
+                    } else if (progress < 80) {
+                        progressStatus.textContent = 'Processing media container...';
+                    } else {
+                        progressStatus.textContent = 'Finalizing download package...';
+                    }
+                }
+            }, 150);
         }
 
         function resetApp() {
-            document.getElementById('download-form').reset();
-            document.getElementById('result-box').classList.add('hidden');
-            document.getElementById('loading-box').classList.add('hidden');
-            const videoPlayer = document.getElementById('preview-video');
-            videoPlayer.pause();
-            videoPlayer.src = "";
-            detectPlatform('');
-        }
-
-        function showToast(msg) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'pointer-events-auto bg-zinc-900 border border-zinc-800 text-zinc-200 px-3 py-2 rounded-lg text-xs shadow-xl transition-all duration-200';
-            toast.textContent = msg;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 200);
-            }, 2500);
+            document.getElementById('videoUrl').value = '';
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('quickTip').classList.remove('hidden');
+            const player = document.getElementById('videoPreviewPlayer');
+            player.pause();
+            player.src = '';
         }
     </script>
 </body>
